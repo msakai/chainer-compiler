@@ -35,3 +35,9 @@ set_target_properties(_chainer_compiler_core.so
     PREFIX "${PYTHON_MODULE_PREFIX}"
     SUFFIX "${PYTHON_MODULE_SUFFIX}")
 set_hidden_(_chainer_compiler_core.so)
+
+if(APPLE)
+    set_property(
+        TARGET _chainer_compiler_core.so APPEND_STRING PROPERTY
+            LINK_FLAGS "-undefined dynamic_lookup")
+endif()

@@ -108,6 +108,11 @@ if (${CHAINER_COMPILER_ENABLE_PYTHON})
     PROPERTIES
     PREFIX "${PYTHON_MODULE_PREFIX}"
     SUFFIX "${PYTHON_MODULE_SUFFIX}")
+  if(APPLE)
+    set_property(
+      TARGET run_onnx_core.so APPEND_STRING PROPERTY
+          LINK_FLAGS "-undefined dynamic_lookup")
+  endif()
 
   if(${CHAINER_COMPILER_ENABLE_OPENCV})
     add_library(train_imagenet_core.so MODULE train_imagenet_core.cc)
@@ -128,6 +133,11 @@ if (${CHAINER_COMPILER_ENABLE_PYTHON})
       PROPERTIES
       PREFIX "${PYTHON_MODULE_PREFIX}"
       SUFFIX "${PYTHON_MODULE_SUFFIX}")
+    if(APPLE)
+      set_property(
+        TARGET train_imagenet_core.so APPEND_STRING PROPERTY
+            LINK_FLAGS "-undefined dynamic_lookup")
+    endif()
   endif()
 
 endif()
